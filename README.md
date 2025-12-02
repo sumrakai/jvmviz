@@ -50,7 +50,7 @@ A console utility for real-time monitoring of JVM threads, memory, and garbage c
 ## Requirements
 
 - **JDK 25** (recommended for better performance and memory consumption)
-- **Gradle 7.6+** (tested with Gradle 9.2.1)
+- **Gradle 9.2.*
 
 ## Quick Start
 

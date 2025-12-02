@@ -11,23 +11,19 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Тесты для MonitorService.
- * Используем реальные объекты вместо моков из-за ограничений Mockito с Java 25.
+ * Tests for MonitorService.
+ * Uses real objects instead of mocks due to Mockito limitations with Java 25.
  */
 class MonitorServiceTest {
 
-    private ThreadCollector threadCollector;
-    private MemoryCollector memoryCollector;
-    private GcCollector gcCollector;
-    private Visualizer visualizer;
     private MonitorService monitorService;
 
     @BeforeEach
     void setUp() {
-        threadCollector = new ThreadCollector();
-        memoryCollector = new MemoryCollector();
-        gcCollector = new GcCollector();
-        visualizer = new ConsoleVisualizer();
+        ThreadCollector threadCollector = new ThreadCollector();
+        MemoryCollector memoryCollector = new MemoryCollector();
+        GcCollector gcCollector = new GcCollector();
+        Visualizer visualizer = new ConsoleVisualizer();
         monitorService = new MonitorService(
                 threadCollector,
                 memoryCollector,
@@ -37,68 +33,50 @@ class MonitorServiceTest {
     }
 
     @Test
-    void testStart() throws InterruptedException {
-        // Когда
+    void testStart() {
         monitorService.start();
 
-        // Тогда
-        assertTrue(monitorService.isRunning(), "Сервис должен быть запущен");
+        assertTrue(monitorService.isRunning());
 
-        // Останавливаем для очистки
         monitorService.stop();
     }
 
     @Test
     void testStop() throws InterruptedException {
-        // Дано
         monitorService.start();
         assertTrue(monitorService.isRunning());
 
-        // Когда
         monitorService.stop();
-        Thread.sleep(100); // Даём время на завершение
+        Thread.sleep(100);
 
-        // Тогда
-        assertFalse(monitorService.isRunning(), "Сервис должен быть остановлен");
+        assertFalse(monitorService.isRunning());
     }
 
     @Test
-    void testDoubleStart() throws InterruptedException {
-        // Дано
+    void testDoubleStart() {
+        monitorService.start();
         monitorService.start();
 
-        // Когда
-        monitorService.start(); // Попытка запустить второй раз
-
-        // Тогда
         assertTrue(monitorService.isRunning());
 
-        // Очистка
         monitorService.stop();
     }
 
     @Test
     void testStopWhenNotRunning() {
-        // Когда
         monitorService.stop();
 
-        // Тогда
         assertFalse(monitorService.isRunning());
-        // Не должно быть исключений
     }
 
     @Test
     void testIsRunning() {
-        // Дано
-        assertFalse(monitorService.isRunning(), "Изначально сервис не запущен");
+        assertFalse(monitorService.isRunning());
 
-        // Когда
         monitorService.start();
 
-        // Тогда
         assertTrue(monitorService.isRunning());
 
-        // Очистка
         monitorService.stop();
     }
 }
