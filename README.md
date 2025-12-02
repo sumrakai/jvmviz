@@ -1,6 +1,3 @@
-Содержимое файла `README.md`:
-
-```markdown
 # JVM Visualization Tool
 
 A console utility for real-time monitoring of JVM threads, memory, and garbage collector with beautiful ASCII visualization.
@@ -203,11 +200,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author
 
-**Alexandr Ishchenko**
+**sumrakai**
 
 - GitHub: [@sumrakai](https://github.com/sumrakai)
 
 ---
-
 ⭐ If you find this project useful, please consider giving it a star!
-```
